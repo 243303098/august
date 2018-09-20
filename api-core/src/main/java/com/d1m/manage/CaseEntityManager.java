@@ -20,7 +20,7 @@ public class CaseEntityManager {
      *
      * 功能描述: 获取caseEntity的对象并存储到List中
      *
-     * @param:  * @param null
+     * @param:  * @param caseEntityPath
      * @return:
      * @auther: Leo.hu
      * @date: 2018/8/22 16:35
@@ -31,9 +31,7 @@ public class CaseEntityManager {
         try {
             FastExcel fastExcel = new FastExcel(is);
             caseEntityList = fastExcel.praseExcel(CaseEntity.class);
-        } catch (InvalidFormatException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (InvalidFormatException | IOException e) {
             e.printStackTrace();
         }
         return caseEntityList;

@@ -73,6 +73,7 @@ public class CaseDetailsEntityManager {
                 caseDetailsEntity.setQuerySql(querySqlDataEntityList);
                 caseDetailsEntity.setExpectSqlResult(caseEntityList.get(i).getExpectSqlResult());
                 caseDetailsEntity.setClearSql(clearSqlDataEntityList);
+                caseDetailsEntity.setComment(caseEntityList.get(i).getComment());
                 caseDetailsEntityList.add(caseDetailsEntity);
             }
         }

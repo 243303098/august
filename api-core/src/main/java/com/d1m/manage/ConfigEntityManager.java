@@ -1,7 +1,6 @@
 package com.d1m.manage;
 
 import com.d1m.Entity.ConfigEntity;
-import com.d1m.Entity.DataEntity;
 import com.d1m.utils.FastExcel;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
@@ -31,9 +30,7 @@ public class ConfigEntityManager {
         try {
             FastExcel fastExcel = new FastExcel(is);
             configEntityList = fastExcel.praseExcel(ConfigEntity.class);
-        } catch (InvalidFormatException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (InvalidFormatException | IOException e) {
             e.printStackTrace();
         }
         return configEntityList;

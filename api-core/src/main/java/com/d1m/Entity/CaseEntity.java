@@ -51,6 +51,9 @@ public class CaseEntity {
     @CellMapping(cellName = "ClearSql")
     public String clearSql ;
 
+    @CellMapping(cellName = "Comment")
+    public String comment ;
+
     public String getId() {
         return id;
     }
@@ -161,5 +164,13 @@ public class CaseEntity {
 
     public void setClearSql(String clearSql) {
         this.clearSql = clearSql;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

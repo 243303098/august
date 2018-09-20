@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="dior" parallel="classes" thread-count="1">
+<suite name="api" parallel="classes" thread-count="1">
     <parameter name="project" value=""/>
     <test parallel="classes" preserve-order="false" name="TestDebug">
         <classes>

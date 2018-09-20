@@ -27,6 +27,8 @@ public class Test {
             System.out.println(list.get(i));
         }
 
+        Map map = new HashMap();
+        map.put("11","22");
     }
 
 }

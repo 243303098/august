@@ -51,6 +51,8 @@ public class CaseDetailsEntity {
 
     private Map<String, String> requestParamMap ;
 
+    private String Comment ;
+
     public String getId() {
         return id;
     }
@@ -209,5 +211,13 @@ public class CaseDetailsEntity {
 
     public void setRequestParamMap(Map<String, String> requestParamMap) {
         this.requestParamMap = requestParamMap;
+    }
+
+    public String getComment() {
+        return Comment;
+    }
+
+    public void setComment(String comment) {
+        Comment = comment;
     }
 }

@@ -82,12 +82,12 @@ public class HttpClientUtil {
             String[] head = caseDetailsEntity.getHeadDetails();
             for (int i = 0; i < head.length; i++) {
                 String[] headKeyAndValue = head[i].split("\\:");
-                httpPost.addHeader(headKeyAndValue[0], headKeyAndValue[1]);
+                httpPost.addHeader(headKeyAndValue[0].replaceAll("\n",""), headKeyAndValue[1].replaceAll("\n",""));
             }
         }
         try {
             Reporter.log("当前接口输入的参数为：" + caseDetailsEntity.getRequestParam());
-            StringEntity stringEntity = new StringEntity(caseDetailsEntity.getRequestParam(), "UTF-8");
+            StringEntity stringEntity = new StringEntity(caseDetailsEntity.getRequestParam().replaceAll("\n",""), "UTF-8");
             //stringEntity.setContentType("application/json");
             httpPost.setEntity(stringEntity);
         } catch (Exception e) {
@@ -141,8 +141,13 @@ public class HttpClientUtil {
         // 创建参数队列
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
         for (String key : caseDetailsEntity.getRequestParamMap().keySet()) {
-            nameValuePairs.add(new BasicNameValuePair(key, caseDetailsEntity.getRequestParamMap().get(key)));
+            nameValuePairs.add(new BasicNameValuePair(key, caseDetailsEntity.getRequestParamMap().get(key)));//replaceAll("\n","")
         }
+        String logParam = "输入的请求参数为：";
+        for (int i = 0; i < nameValuePairs.size(); i++) {
+            logParam = logParam + nameValuePairs.get(i).toString();
+        }
+        Reporter.log(logParam);
         try {
             httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs, "UTF-8"));
         } catch (Exception e) {
@@ -192,13 +197,8 @@ public class HttpClientUtil {
             httpPost.setConfig(requestConfig);
             // 执行请求
             response = httpClient.execute(httpPost);
-            if (response.getStatusLine().toString().contains("200")) {
-                Reporter.log("请求成功接口返回:" + response.getStatusLine());
-                entity = response.getEntity();
-                responseContent = EntityUtils.toString(entity, "UTF-8");
-            } else {
-                Reporter.log("请求失败接口返回:" + response.getStatusLine());
-            }
+            entity = response.getEntity();
+            responseContent = EntityUtils.toString(entity, "UTF-8");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

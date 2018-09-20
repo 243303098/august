@@ -32,9 +32,7 @@ public class DataEntityManager {
         try {
             FastExcel fastExcel = new FastExcel(is);
             dataEntityList = fastExcel.praseExcel(DataEntity.class);
-        } catch (InvalidFormatException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (InvalidFormatException | IOException e) {
             e.printStackTrace();
         }
         return dataEntityList;
