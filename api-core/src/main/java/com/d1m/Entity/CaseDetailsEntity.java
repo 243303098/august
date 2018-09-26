@@ -23,6 +23,14 @@ public class CaseDetailsEntity {
 
     private String dbPassword ;
 
+    private String sshName ;
+
+    private String sshPassword ;
+
+    private String sshHost ;
+
+    private String sshPort ;
+
     private String host ;
 
     private String path ;
@@ -99,6 +107,38 @@ public class CaseDetailsEntity {
 
     public void setDbPassword(String dbPassword) {
         this.dbPassword = dbPassword;
+    }
+
+    public String getSshName() {
+        return sshName;
+    }
+
+    public void setSshName(String sshName) {
+        this.sshName = sshName;
+    }
+
+    public String getSshPassword() {
+        return sshPassword;
+    }
+
+    public void setSshPassword(String sshPassword) {
+        this.sshPassword = sshPassword;
+    }
+
+    public String getSshHost() {
+        return sshHost;
+    }
+
+    public void setSshHost(String sshHost) {
+        this.sshHost = sshHost;
+    }
+
+    public String getSshPort() {
+        return sshPort;
+    }
+
+    public void setSshPort(String sshPort) {
+        this.sshPort = sshPort;
     }
 
     public String getHost() {

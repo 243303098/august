@@ -5,12 +5,13 @@ import com.alibaba.fastjson.JSONPath;
 import com.d1m.Entity.CaseDetailsEntity;
 import com.d1m.manage.CaseDetailsEntityManager;
 import com.d1m.utils.*;
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.Session;
 import org.testng.Reporter;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import java.net.URLEncoder;
 import java.sql.*;
 import java.util.*;
 
@@ -56,6 +57,8 @@ public class ExcuteAllCase {
     private static String password;
 
     private static String driver;
+
+    private  static String[] dbHost ;
 
     /**
      * QuerySql返回结果
@@ -124,7 +127,7 @@ public class ExcuteAllCase {
                 for (int j = 0; j < initSqlList.size(); j++) {
                     //  参数替换
                     for (int k = 0; k < relatedAPI.length; k++) {
-                        if (processorMap.get(relatedAPI[k]).containsKey(initSqlList.get(j))){
+                        if (processorMap.get(relatedAPI[k]).containsKey(initSqlList.get(j))) {
                             initSqlParam = processorMap.get(relatedAPI[k]).get(initSqlList.get(j));
                             break;
                         }
@@ -147,14 +150,14 @@ public class ExcuteAllCase {
          *  head 头中可能包含引用的参数，用“${}”来引用，其参数来源于依赖接口的返回值
          */
         String[] head = caseDetailsEntity.getHead().split("\\&");
-        String headParam = null ;
+        String headParam = null;
         for (int i = 0; i < head.length; i++) {
             //  如果大于0，则表示head中有引入参数，需要替换该参数
             List headParamList = RegExp.getKeywords(head[i]);
             for (int j = 0; j < headParamList.size(); j++) {
                 //  将其中的参数替换为真正的值，并更新caseDetailsEntity
                 for (int k = 0; k < relatedAPI.length; k++) {
-                    if (processorMap.get(relatedAPI[k]).containsKey(headParamList.get(j))){
+                    if (processorMap.get(relatedAPI[k]).containsKey(headParamList.get(j))) {
                         headParam = processorMap.get(relatedAPI[k]).get(headParamList.get(j));
                         break;
                     }
@@ -174,7 +177,7 @@ public class ExcuteAllCase {
             for (int i = 0; i < requestParamList.size(); i++) {
                 //  参数替换
                 for (int k = 0; k < relatedAPI.length; k++) {
-                    if (processorMap.get(relatedAPI[k]).containsKey(requestParamList.get(i))){
+                    if (processorMap.get(relatedAPI[k]).containsKey(requestParamList.get(i))) {
                         requestParam = processorMap.get(relatedAPI[k]).get(requestParamList.get(i));
                         break;
                     }
@@ -197,7 +200,7 @@ public class ExcuteAllCase {
             }
             if (caseDetailsEntity.getHead().toUpperCase().contains("FORM")) {
                 //  处理form-data形式的参数转为map或list
-                String[] formdata = caseDetailsEntity.getRequestParam().replaceAll("\n","").split("\\&");
+                String[] formdata = caseDetailsEntity.getRequestParam().replaceAll("\n", "").split("\\&");
                 for (int i = 0; i < formdata.length; i++) {
                     String[] dataDetails = formdata[i].split("\\:");
                     dataMap.put(dataDetails[0], dataDetails[1]);
@@ -209,19 +212,36 @@ public class ExcuteAllCase {
         Reporter.log("接口返回的Response为： " + JSONObject.parse(result));
 
         /**
+         *  判断后置处理器，不为空则执行完当前Case之后存储该处理器中所需要保存的数据
+         *  将所有的数据存入processorMap中，供关联接口调用
+         */
+        if (!StringTools.isNullOrEmpty(caseDetailsEntity.getPostProcessor())) {
+            String[] processor = caseDetailsEntity.getPostProcessor().split("\\&");
+            Map<String, String> processorDeatilsMap = new HashMap<>();
+            for (int i = 0; i < processor.length; i++) {
+                //  将所有的后置参数全部存储到processorMap中，方便后期调用,只取第一个值
+                List<Object> list = (List<Object>) JSONPath.eval(JSONObject.parse(result), "$.." + processor[i]);
+                if (list.size() > 0) {
+                    processorDeatilsMap.put(processor[i], list.get(0).toString());
+                }
+            }
+            processorMap.put(caseDetailsEntity.getId(), processorDeatilsMap);
+        }
+
+        /**
          *  判断是否有查询的sql，并且ExpectSqlResult不为空的话，则执行该操作
          *  sql中可能存在引用参数，需先替换
          *  判断sql返回值与预期结果是否相同
          */
         if (caseDetailsEntity.getQuerySql().size() > 0 && !StringTools.isNullOrEmpty(caseDetailsEntity.getExpectSqlResult())) {
             //替换sql中可能存在的引用参数
-            String queryParam = null ;
+            String queryParam = null;
             for (int i = 0; i < caseDetailsEntity.getQuerySql().size(); i++) {
                 List querySqlList = RegExp.getKeywords(caseDetailsEntity.getQuerySql().get(i));
                 for (int j = 0; j < querySqlList.size(); j++) {
                     //  参数替换
                     for (int k = 0; k < relatedAPI.length; k++) {
-                        if (processorMap.get(relatedAPI[k]).containsKey(querySqlList.get(j))){
+                        if (processorMap.get(relatedAPI[k]).containsKey(querySqlList.get(j))) {
                             queryParam = processorMap.get(relatedAPI[k]).get(querySqlList.get(j));
                             break;
                         }
@@ -234,11 +254,10 @@ public class ExcuteAllCase {
             for (int i = 0; i < caseDetailsEntity.getQuerySql().size(); i++) {
                 resultMap.putAll(excuteQuerySql(caseDetailsEntity, caseDetailsEntity.getQuerySql().get(i)));
             }
-
             //将预期的sql返回值转换成Map存储
             Map<String, String> expectSqlResultMap = new HashMap();
             //  去除所有的换行符，并以&分隔
-            String[] expectSqlResult = caseDetailsEntity.getExpectSqlResult().split("\\&");
+            String[] expectSqlResult = caseDetailsEntity.getExpectSqlResult().replaceAll("\n", "").split("\\&");
             for (int i = 0; i < expectSqlResult.length; i++) {
                 String[] expectSqlResultDetails = expectSqlResult[i].split("\\:");
                 expectSqlResultMap.put(expectSqlResultDetails[0], expectSqlResultDetails[1]);
@@ -284,23 +303,6 @@ public class ExcuteAllCase {
         }
 
         /**
-         *  判断后置处理器，不为空则执行完当前Case之后存储该处理器中所需要保存的数据
-         *  将所有的数据存入processorMap中，供关联接口调用
-         */
-        if (!StringTools.isNullOrEmpty(caseDetailsEntity.getPostProcessor())) {
-            String[] processor = caseDetailsEntity.getPostProcessor().split("\\&");
-            Map<String, String> processorDeatilsMap = new HashMap<>();
-            for (int i = 0; i < processor.length; i++) {
-                //  将所有的后置参数全部存储到processorMap中，方便后期调用,只取第一个值
-                List<Object> list = (List<Object>) JSONPath.eval(JSONObject.parse(result), "$.." + processor[i]);
-                if (list.size() > 0) {
-                    processorDeatilsMap.put(processor[i], list.get(0).toString());
-                }
-            }
-            processorMap.put(caseDetailsEntity.getId(), processorDeatilsMap);
-        }
-
-        /**
          *  执行清除的sql
          */
         if (caseDetailsEntity.getClearSql().size() > 0) {
@@ -311,7 +313,7 @@ public class ExcuteAllCase {
                 for (int j = 0; j < clearSqlList.size(); j++) {
                     //  参数替换
                     for (int k = 0; k < relatedAPI.length; k++) {
-                        if (processorMap.get(relatedAPI[k]).containsKey(clearSqlList.get(j))){
+                        if (processorMap.get(relatedAPI[k]).containsKey(clearSqlList.get(j))) {
                             clearParam = processorMap.get(relatedAPI[k]).get(clearSqlList.get(j));
                             break;
                         }
@@ -354,8 +356,8 @@ public class ExcuteAllCase {
     /**
      * 执行update，增删改操作
      *
-     * @param caseDetailsEntity     执行的具体的case信息
-     * @param sql   需要执行的sql语句
+     * @param caseDetailsEntity 执行的具体的case信息
+     * @param sql               需要执行的sql语句
      */
     private void excuteUpdateSql(CaseDetailsEntity caseDetailsEntity, String sql) {
         jdbcConfig(caseDetailsEntity);
@@ -371,11 +373,12 @@ public class ExcuteAllCase {
      * 装载驱动
      */
     private void jdbcConfig(CaseDetailsEntity caseDetailsEntity) {
-        url = caseDetailsEntity.getDbUrl();
+        dbHost = caseDetailsEntity.getDbUrl().split("\\/");
+        url = "jdbc:mysql://localhost:3307/" + dbHost[1];
         userName = caseDetailsEntity.getDbUserName();
         password = caseDetailsEntity.getDbPassword();
         driver = "com.mysql.jdbc.Driver";
-
+        connectSession(caseDetailsEntity);
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
@@ -386,12 +389,11 @@ public class ExcuteAllCase {
     /**
      * 建立数据库连接
      *
-     * @return  Connection
+     * @return Connection
      * @throws SQLException
      */
     public static Connection getConnection() throws SQLException {
-        Connection conn = null;
-        conn = DriverManager.getConnection(url, userName, password);
+        Connection conn = DriverManager.getConnection(url, userName, password);
         return conn;
     }
 
@@ -452,5 +454,26 @@ public class ExcuteAllCase {
             freeConnection(conn);
         }
     }
+
+    /**
+     *  创建SSH 连接
+     * @param caseDetailsEntity
+     */
+    public static void connectSession(CaseDetailsEntity caseDetailsEntity) {
+        try {
+            JSch jsch = new JSch();
+            Session session = jsch.getSession(caseDetailsEntity.getSshName(), caseDetailsEntity.getSshHost(), Integer.valueOf(caseDetailsEntity.getSshPort()));
+            session.setPassword(caseDetailsEntity.getSshPassword());
+            session.setConfig("StrictHostKeyChecking", "no");
+            System.out.println("Establishing Connection...");
+            session.connect();
+            //需要根据url获取host
+            int assinged_port=session.setPortForwardingL(3307, dbHost[0], 3306);
+            System.out.println("localhost:"+assinged_port+" -> "+dbHost[0]+":"+ 3306);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

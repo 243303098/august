@@ -1,34 +1,67 @@
 package com.d1m.utils;
 
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.Session;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONPath;
-import com.d1m.Entity.CaseDetailsEntity;
-import com.d1m.manage.CaseDetailsEntityManager;
-
-import java.util.*;
-
-import static com.d1m.utils.Constants.*;
+import java.sql.*;
 
 public class Test {
 
-    public static void main(String[] args) {
-        //String result = "{\"msg\":\"SUCCESS\",\"data\":{\"token\":\"c48c9307ed1199cf1e931d884c4ee500\"},\"resultCode\":\"1\"}";
-//        for (int i = 1; i < 1001; i++) {
-//            String result = HttpClientUtil.sendHttpsGet("https://rimowaestore.fgcndigital.com/api/v4/estore/member/getFakeToken/33/43/"+i+"/123");
-//            List<Object> list = (List<Object>)JSONPath.eval(JSONObject.parse(result), "$..token");
-//            System.out.println(list.get(0).toString());
-//        }
-        List list = new ArrayList();
-        list.add("111");
-        list.add("222");
-        for (int i = 0; i < list.size(); i++) {
-            list.set(i, list.get(i).toString().replaceAll("1","2"));
-            System.out.println(list.get(i));
+    static int lport;
+    static String rhost;
+    static int rport;
+    public static void go(){
+        String user = "d1m";
+        String password = "85y:IoS%!t3E";
+        String host = "182.254.208.25";
+        int port = 22;
+        try
+        {
+            JSch jsch = new JSch();
+            Session session = jsch.getSession(user, host, port);
+            lport = 3307;
+            rhost = "192.168.1.17";
+            rport = 3306;
+            session.setPassword(password);
+            session.setConfig("StrictHostKeyChecking", "no");
+            System.out.println("Establishing Connection...");
+            session.connect();
+            int assinged_port=session.setPortForwardingL(lport, rhost, rport);
+            System.out.println("localhost:"+assinged_port+" -> "+rhost+":"+rport);
         }
-
-        Map map = new HashMap();
-        map.put("11","22");
+        catch(Exception e){System.err.print(e);}
     }
+    public static void main(String[] args) {
+        try{
+            go();
+        } catch(Exception ex){
+            ex.printStackTrace();
+        }
+        System.out.println("An example for updating a Row from Mysql Database!");
+        Connection con = null;
+        String driver = "com.mysql.jdbc.Driver";
+        String url = "jdbc:mysql://localhost:" + lport + "/";//" + rhost +";
+        String db = "lv-vvv-php";
+        String dbUser = "admin_readonly";
+        String dbPasswd = "eqghtqFgnfxX160I";
+        try{
+            Class.forName(driver);
+            con = DriverManager.getConnection(url+db, dbUser, dbPasswd);
+            try{
+                Statement st = con.createStatement();
+                String sql = "SELECT name FROM admin_users WHERE id = 1" ;
 
+                ResultSet result = st.executeQuery(sql);
+                while(result.next()){
+                    System.out.println(result.getString("name") + " ");
+                }
+            }
+            catch (SQLException s){
+                System.out.println("SQL statement is not executed!");
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 }

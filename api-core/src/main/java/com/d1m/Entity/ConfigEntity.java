@@ -24,6 +24,18 @@ public class ConfigEntity {
     @CellMapping(cellName = "Host")
     public String host ;
 
+    @CellMapping(cellName = "SSHName")
+    public String sshName ;
+
+    @CellMapping(cellName = "SSHPassword")
+    public String sshPassword ;
+
+    @CellMapping(cellName = "SSHHost")
+    public String sshHost ;
+
+    @CellMapping(cellName = "SSHPort")
+    public String sshPort ;
+
     @CellMapping(cellName = "IsUsed")
     public String isUesd ;
 
@@ -73,5 +85,37 @@ public class ConfigEntity {
 
     public void setIsUesd(String isUesd) {
         this.isUesd = isUesd;
+    }
+
+    public String getSshName() {
+        return sshName;
+    }
+
+    public void setSshName(String sshName) {
+        this.sshName = sshName;
+    }
+
+    public String getSshPassword() {
+        return sshPassword;
+    }
+
+    public void setSshPassword(String sshPassword) {
+        this.sshPassword = sshPassword;
+    }
+
+    public String getSshHost() {
+        return sshHost;
+    }
+
+    public void setSshHost(String sshHost) {
+        this.sshHost = sshHost;
+    }
+
+    public String getSshPort() {
+        return sshPort;
+    }
+
+    public void setSshPort(String sshPort) {
+        this.sshPort = sshPort;
     }
 }

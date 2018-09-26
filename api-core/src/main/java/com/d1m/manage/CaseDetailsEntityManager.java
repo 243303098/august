@@ -61,6 +61,10 @@ public class CaseDetailsEntityManager {
                 caseDetailsEntity.setDbUrl(configEntity.getUrl());
                 caseDetailsEntity.setDbUserName(configEntity.getUserName());
                 caseDetailsEntity.setDbPassword(configEntity.getPassword());
+                caseDetailsEntity.setSshHost(configEntity.getSshHost());
+                caseDetailsEntity.setSshName(configEntity.getSshName());
+                caseDetailsEntity.setSshPassword(configEntity.getSshPassword());
+                caseDetailsEntity.setSshPort(configEntity.getSshPort());
                 caseDetailsEntity.setHost(configEntity.getHost());
                 caseDetailsEntity.setPath(caseEntityList.get(i).getPath());
                 caseDetailsEntity.setRequestMethod(caseEntityList.get(i).getRequestMethod());
