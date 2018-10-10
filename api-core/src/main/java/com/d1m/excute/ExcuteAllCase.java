@@ -14,6 +14,7 @@ import org.testng.asserts.SoftAssert;
 
 import java.sql.*;
 import java.util.*;
+import java.util.Date;
 
 import static com.d1m.utils.Constants.CASEENTITY;
 import static com.d1m.utils.Constants.CONFIGENTITY;
@@ -374,11 +375,17 @@ public class ExcuteAllCase {
      */
     private void jdbcConfig(CaseDetailsEntity caseDetailsEntity) {
         dbHost = caseDetailsEntity.getDbUrl().split("\\/");
-        url = "jdbc:mysql://localhost:3307/" + dbHost[1];
+        url = "jdbc:mysql://localhost:8081/" + dbHost[1];
         userName = caseDetailsEntity.getDbUserName();
         password = caseDetailsEntity.getDbPassword();
         driver = "com.mysql.jdbc.Driver";
-        connectSession(caseDetailsEntity);
+        //判断是否需要ssh连接
+        if (!StringTools.isNullOrEmpty(caseDetailsEntity.getSshHost())){
+            connectSession(caseDetailsEntity);
+            url = "jdbc:mysql://localhost:8081/" + dbHost[1];
+        }else {
+            url = "jdbc:mysql://" + caseDetailsEntity.getDbUrl();
+        }
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
@@ -465,11 +472,11 @@ public class ExcuteAllCase {
             Session session = jsch.getSession(caseDetailsEntity.getSshName(), caseDetailsEntity.getSshHost(), Integer.valueOf(caseDetailsEntity.getSshPort()));
             session.setPassword(caseDetailsEntity.getSshPassword());
             session.setConfig("StrictHostKeyChecking", "no");
-            System.out.println("Establishing Connection...");
+            System.out.println("Establishing Connection..." + new Date());
             session.connect();
             //需要根据url获取host
-            int assinged_port=session.setPortForwardingL(3307, dbHost[0], 3306);
-            System.out.println("localhost:"+assinged_port+" -> "+dbHost[0]+":"+ 3306);
+            int assinged_port=session.setPortForwardingL(8081, dbHost[0], 3306);
+            System.out.println("localhost:"+assinged_port+" -> "+dbHost[0]+":"+ 3306 + new Date());
         } catch (Exception e) {
             e.printStackTrace();
         }
