@@ -1,0 +1,459 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset='utf-8' /> 
+	<meta name='description' content='' />
+	<meta name='robots' content='noodp, noydir' />
+	<meta name='viewport' content='width=device-width, initial-scale=1' />
+
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
+		<link href='http://extentreports.com/resx/dist/css/extent.css' type='text/css' rel='stylesheet' />
+	
+	<title>Auto Test Report</title>
+
+	<style type='text/css'>
+		.node.level-1  ul{ display:none;} .node.level-1.active ul{display:block;}
+	</style>
+</head>
+	<body class='extent standard default hide-overflow '>
+		<div id='theme-selector' alt='Click to toggle theme. To enable by default, use theme configuration.' title='Click to toggle theme. To enable by default, use theme configuration.'>
+			<span><i class='material-icons'>desktop_windows</i></span>
+		</div>
+
+<nav>
+	<div class="nav-wrapper">
+		<a href="#!" class="brand-logo blue darken-3">Extent</a>
+
+		<!-- slideout menu -->
+		<ul id='slide-out' class='side-nav fixed hide-on-med-and-down'>
+			<li class='waves-effect active'><a href='#!' view='test-view' onclick="configureView(0);chartsView('test');"><i class='material-icons'>dashboard</i></a></li>
+						<li class='waves-effect'><a href='#!' onclick="configureView(-1);chartsView('dashboard');" view='dashboard-view'><i class='material-icons'>track_changes</i></i></a></li>
+		</ul>
+
+		<!-- report name -->
+		<span class='report-name'>Auto Test Report</span>
+		
+		<!-- report headline -->
+		<span class='report-headline'></span>
+
+		<!-- nav-right -->
+		<ul id='nav-mobile' class='right hide-on-med-and-down nav-right'>
+			<a href='#!'>
+				<span class='label suite-start-time'>Oct 11, 2018 11:05:46 AM</span>
+			</a>
+			<a href='#!'>
+				<span class='label'>v3.0.3</span>
+			</a>
+		</ul>
+	</div>
+</nav>
+		<!-- container -->
+		<div class='container'>
+
+<div id='test-view' class='view'>
+				
+	<section id='controls'>
+		<div class='controls grey lighten-4'>
+			<!-- test toggle -->
+			<div class='chip transparent'>
+				<a class='dropdown-button tests-toggle' data-activates='tests-toggle' data-constrainwidth='true' data-beloworigin='true' data-hover='true' href='#'>
+					<i class='material-icons'>warning</i> Status
+				</a>
+				<ul id='tests-toggle' class='dropdown-content'>
+											<li status='pass'><a href='#!'>Pass <i class='material-icons green-text'>check_circle</i></a></li>
+					<li class='divider'></li>
+					<li status='clear' clear='true'><a href='#!'>Clear Filters <i class='material-icons'>clear</i></a></li>
+				</ul>
+			</div>
+			<!-- test toggle -->
+
+			<!-- category toggle -->
+			<!-- category toggle -->
+
+			<!-- clear filters -->
+			<div class='chip transparent hide'>
+				<a class='' id='clear-filters' alt='Clear Filters' title='Clear Filters'>
+					<i class='material-icons'>close</i> Clear
+				</a>
+			</div>
+			<!-- clear filters -->
+
+			<!-- enable dashboard -->
+			<div id='toggle-test-view-charts' class='chip transparent'>
+				<a class='pink-text' id='enable-dashboard' alt='Enable Dashboard' title='Enable Dashboard'>
+					<i class='material-icons'>track_changes</i> Dashboard
+				</a>
+			</div>
+			<!-- enable dashboard -->
+
+			<!-- search -->
+			<div class='chip transparent' alt='Search Tests' title='Search Tests'>
+				<a href="#" class='search-div'>
+					<i class='material-icons'>search</i> Search
+				</a>
+
+				<div class='input-field left hide'>
+					<input id='search-tests' type='text' class='validate browser-default' placeholder='Search Tests...'>
+				</div>
+				
+			</div>
+			<!-- search -->
+		</div>
+	</section>
+
+
+<div id='test-view-charts' class='subview-full'>
+	<div id='charts-row' class='row nm-v nm-h'>
+		<div class='col s12 m6 l6 np-h'>
+			<div class='card-panel nm-v'>
+				<div class='left panel-name'>Tests</div>
+				<div class='chart-box'>
+					<canvas id='parent-analysis' width='100' height='80'></canvas>
+				</div>
+				<div class='block text-small'>
+					<span><span class='strong'>3</span> test(s) passed</span>
+				</div>
+				<div class='block text-small'>
+					<span class='strong'>0</span> test(s) failed, <span class='strong'>0</span> others
+				</div>
+			</div>
+		</div>
+		
+		<div class='col s12 m6 l6 np-h'>
+			<div class='card-panel nm-v'>
+				<div class='left panel-name'>Steps</div>
+				<div class='chart-box'>
+					<canvas id='child-analysis' width='100' height='80'></canvas>
+				</div>
+				<div class='block text-small'>
+					<span><span class='strong'>3</span> step(s) passed</span>
+				</div>
+				<div class='block text-small'>
+					<span class='strong'>0</span> step(s) failed, <span class='strong'>0</span> others
+				</div>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+	<div class='subview-left left'>
+		
+		<div class='view-summary'>
+			<h5>Tests</h3>
+			<ul id='test-collection' class='test-collection'>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='1'>
+					<div class='test-heading'>
+						<span class='test-name'>产品列表</span>
+						<span class='test-time'>Oct 11, 2018 11:05:46 AM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Oct 11, 2018 11:05:46 AM</span>
+	<span class='label end-time'>Oct 11, 2018 11:05:47 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 1s+410ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='debug'>
+					<td class='status debug' title='debug' alt='debug'><i class='material-icons'>low_priority</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>当前执行的CaseId：产品列表</td>
+				</tr>
+				<tr class='log' status='debug'>
+					<td class='status debug' title='debug' alt='debug'><i class='material-icons'>low_priority</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>请求的接口头信息为： Content-Type:application/json</td>
+				</tr>
+				<tr class='log' status='debug'>
+					<td class='status debug' title='debug' alt='debug'><i class='material-icons'>low_priority</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>当前请求接口的URL为：https://tissot.d.d1miao.com/applet</td>
+				</tr>
+				<tr class='log' status='debug'>
+					<td class='status debug' title='debug' alt='debug'><i class='material-icons'>low_priority</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>当前接口输入的参数为：{"method": "catalog.product.list",
+    "id": "5",
+    "order": "ordered_qty",
+    "sort": "asc",
+    "pager": "2",
+    "page_size": "15",
+    "filter_attributes": {
+        "gender": "715",
+        "reference_dial_color_label": "585_588"}}</td>
+				</tr>
+				<tr class='log' status='debug'>
+					<td class='status debug' title='debug' alt='debug'><i class='material-icons'>low_priority</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>接口返回的Response为： {"result":{"code":"success","data":{"total_count":64,"attributes":[{"code":"gender","options":[{"label":"女士","value":"716"},{"label":"男士","value":"715"}],"label":"性别"}],"total_pages":5,"order":{"frontend_show_order":"Frontend Show Order","price":"Price","ordered_qty":"Ordered Qty","position":"推荐产品"},"products":[{"image":"https://tissot.d.d1miao.com/media/catalog/product/t/4/t41148353.png","final_price":4450,"is_new":false,"price":"4450.0000","is_hot":false,"name":"LE LOCLE/GR/A/STEEL/BLACK ROMAN DIAL","sku":"T41148353","entity_id":"475"},{"image":"https://tissot.d.d1miao.com/media/catalog/product/t/0/t0356271105100.png","final_price":6950,"is_new":false,"price":"6950.0000","is_hot":false,"name":"COUTURIER/BGR/CHRAC/STEEL/BLACK DIAL","sku":"T0356271105100","entity_id":"598"},{"image":"https://tissot.d.d1miao.com/media/catalog/product/t/0/t0636101605200.png","final_price":2200,"is_new":false,"price":"2200.0000","is_hot":false,"name":"TRADITION/BGR/Q/STEEL/BLACK/BLACK .DIAL","sku":"T0636101605200","entity_id":"443"},{"image":"https://tissot.d.d1miao.com/media/catalog/product/t/0/t0554271105700.png","final_price":7500,"is_new":false,"price":"7500.0000","is_hot":false,"name":"PRC 200/GR/CHRAC/STEEL/BLACK DIAL","sku":"T0554271105700","entity_id":"414"},{"image":"https://tissot.d.d1miao.com/media/catalog/product/t/0/t0864072205100.png","final_price":7100,"is_new":false,"price":"7100.0000","is_hot":false,"name":"LUXURY/GR/A/BICO/BLACK DIAL","sku":"T0864072205100","entity_id":"561"},{"image":"https://tissot.d.d1miao.com/media/catalog/product/t/0/t0914204405100.png","final_price":8550,"is_new":false,"price":"8550.0000","is_hot":false,"name":"T-TOUCH SOLAR/GR/TACT/TI/BLACK DIAL","sku":"T0914204405100","entity_id":"346"},{"image":"https://tissot.d.d1miao.com/media/catalog/product/t/0/t0654301605100.png","final_price":3850,"is_new":false,"price":"3850.0000","is_hot":false,"name":"AUTOMATICIII/GR/A/STEEL/LEA.BLACK/BLACK","sku":"T0654301605100","entity_id":"544"},{"image":"https://tissot.d.d1miao.com/media/catalog/product/t/0/t0354073605101.png","final_price":6050,"is_new":false,"price":"6050.0000","is_hot":false,"name":"COUTURIER/GR/A/ROSA/LEA.BLACK/BLACK","sku":"T0354073605101","entity_id":"622"},{"image":"https://tissot.d.d1miao.com/media/catalog/product/t/0/t0064281605801.png","final_price":5550,"is_new":false,"price":"5550.0000","is_hot":false,"name":"LE LOCLE/GR/A/STEEL/LEA.BLACK/BLACK/SS","sku":"T0064281605801","entity_id":"491"},{"image":"https://tissot.d.d1miao.com/media/catalog/product/t/0/t0356171105100.png","final_price":4050,"is_new":false,"price":"4050.0000","is_hot":false,"name":"COUTURIER/BGR/CHRQ/STEEL/BLACK DIAL","sku":"T0356171105100","entity_id":"604"},{"image":"https://tissot.d.d1miao.com/media/catalog/product/t/0/t0639071605800.png","final_price":5300,"is_new":false,"price":"5300.0000","is_hot":false,"name":"TRADITION/GR/A/STEEL/LEA.BLACK/BLACK","sku":"T0639071605800","entity_id":"466"},{"image":"https://tissot.d.d1miao.com/media/catalog/product/t/0/t0994071605800.png","final_price":5600,"is_new":false,"price":"5600.0000","is_hot":false,"name":"天梭杜鲁尔街镂空系列皮带机械男表","sku":"T0994071605800","entity_id":"578"},{"image":"https://tissot.d.d1miao.com/media/catalog/product/t/1/t1064173605100.png","final_price":4000,"is_new":false,"price":"4000.0000","is_hot":false,"name":"TISSOT V8/GR/CHRQ/BLACK PVD/BLACK/BLACK","sku":"T1064173605100","entity_id":"430"},{"image":"https://tissot.d.d1miao.com/media/catalog/product/t/0/t0554171105700.png","final_price":3850,"is_new":false,"price":"3850.0000","is_hot":false,"name":"PRC 200/GR/CHRQ/STEEL/BLACK DIAL","sku":"T0554171105700","entity_id":"407"},{"image":"https://tissot.d.d1miao.com/media/catalog/product/t/0/t0864081105600.png","final_price":9850,"is_new":false,"price":"9850.0000","is_hot":false,"name":"LUXURY/GR/COSC/STEEL/BLACK DIAL+DIAM","sku":"T0864081105600","entity_id":"551"}]},"message":"操作成功","timestamp":"1539226948"},"status":true}</td>
+				</tr>
+				<tr class='log' status='debug'>
+					<td class='status debug' title='debug' alt='debug'><i class='material-icons'>low_priority</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>Key：code,预期的结果为：success,实际结果为：success</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>Test passed</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='2'>
+					<div class='test-heading'>
+						<span class='test-name'>产品详情</span>
+						<span class='test-time'>Oct 11, 2018 11:05:47 AM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Oct 11, 2018 11:05:47 AM</span>
+	<span class='label end-time'>Oct 11, 2018 11:05:47 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 0s+362ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='debug'>
+					<td class='status debug' title='debug' alt='debug'><i class='material-icons'>low_priority</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>当前执行的CaseId：产品详情</td>
+				</tr>
+				<tr class='log' status='debug'>
+					<td class='status debug' title='debug' alt='debug'><i class='material-icons'>low_priority</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>请求的接口头信息为： Content-Type:application/json</td>
+				</tr>
+				<tr class='log' status='debug'>
+					<td class='status debug' title='debug' alt='debug'><i class='material-icons'>low_priority</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>当前请求接口的URL为：https://tissot.d.d1miao.com/applet</td>
+				</tr>
+				<tr class='log' status='debug'>
+					<td class='status debug' title='debug' alt='debug'><i class='material-icons'>low_priority</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>当前接口输入的参数为：{
+    "method":"catalog.product.detail",
+    "id":"676"
+}</td>
+				</tr>
+				<tr class='log' status='debug'>
+					<td class='status debug' title='debug' alt='debug'><i class='material-icons'>low_priority</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>接口返回的Response为： {"result":{"code":"success","data":{"in_stock":true,"reference_case_options_label":"","reference_dial_color_label":"","sousfamille_tissotmovementcaliber_movmentcaliber_dial":"HMSDD","reference_lugs":"","thumbnail_image_url":"https://tissot.d.d1miao.com/media/catalog/product/no_selection","children":"","price":"0.0100","reference_diamond_dial_diamond_clarity":"","sousfamille_features_glace_label":"","sousfamille_tissotmovementcaliber_movement_entitled":"Swiss automatic","sku":"T0194303603101","collection_label":"","base_image_url":"https://tissot.d.d1miao.com/media/catalog/product/no_selection","reference_diamond_dial_diamond_colour":"","sousfamille_tissotmovementcaliber_tissotfunctionssummary":"","rating_summary":"67","entity_id":"676","gift_information":"","reference_diamond_dial_diamond_quantity":"","name":"天梭唯思达系列皮带机械男表","reference_bracelet_options_label":"butterfly clasp","reviews_count":"11","gender":"Men","bracelet_brac_color_label":"","series_introduction":"","bracelet_code":"T600029772","show_details":"","reference_diameter12h6h":"","description":"PGRpdiBjbGFzcz0iZGVzY3JpcHRpb24taW50cm9kdWN0IGNvbnRhaW5lci1mbHVpZCI+DQoJPGRpdiBjbGFzcz0iY29udGFpbmVyIj4NCgkJPGgzIGNsYXNzPSJ4cy1jb250ZW50LWRyb3Bkb3duIHhzLWNvbnRlbnQtZHJvcGRvd24tb3BlbiI+57O75YiX5LuL57uNPC9oMz4NCiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzPSJjb250ZW50Ij4NCgkJICAgICAgICA8cD4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxpbWcgY2xhc3M9InZpc2libGUtbWQtYmxvY2sgdmlzaWJsZS1sZy1ibG9jayIgc3JjPSJ7e21lZGlhIHVybD0id3lzaXd5Zy9wcm9kdWN0L3QwMTk0MzAzNjAzMTAxL3QwMTk0MzAzNjAzMTAxcGMxLmpwZyJ9fSIgYWx0PSJwYyIgLz4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxpbWcgY2xhc3M9InZpc2libGUtc20tYmxvY2siIHNyYz0ie3ttZWRpYSB1cmw9Ind5c2l3eWcvcHJvZHVjdC90MDE5NDMwMzYwMzEwMS90MDE5NDMwMzYwMzEwMXRiMS5qcGcifX0iIGFsdD0icGFkIiAvPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGltZyBjbGFzcz0idmlzaWJsZS14cy1ibG9jayIgc3JjPSJ7e21lZGlhIHVybD0id3lzaXd5Zy9wcm9kdWN0L3QwMTk0MzAzNjAzMTAxL3QwMTk0MzAzNjAzMTAxbWIxLmpwZyJ9fSIgYWx0PSJtb2JpbGUiIC8+CQ0KICAgICAgICAgICAgICAgICAgICAgICAgPC9wPg0KICAgICAgICAgICAgICAgIDwvZGl2Pg0KCTwvZGl2Pg0KPC9kaXY+DQo8ZGl2IGNsYXNzPSJkZXNjcmlwdGlvbi10ZWNobm9sb2d5IGNvbnRhaW5lci1mbHVpZCI+DQoJPGRpdiBjbGFzcz0iY29udGVudCBjb250YWluZXIiPg0KCQk8aDMgY2xhc3M9InhzLWNvbnRlbnQtZHJvcGRvd24geHMtY29udGVudC1kcm9wZG93bi1vcGVuIj7mioDmnK/op4TmoLw8L2gzPg0KCQk8cD4NCiAgICAgICAgICAgICAgICAgICAgICAgPGltZyBjbGFzcz0idmlzaWJsZS1tZC1ibG9jayB2aXNpYmxlLWxnLWJsb2NrIiBzcmM9Int7bWVkaWEgdXJsPSJ3eXNpd3lnL3Byb2R1Y3QvdDAxOTQzMDM2MDMxMDEvdDAxOTQzMDM2MDMxMDFwYzIuanBnIn19IiBhbHQ9InBjIiAvPg0KICAgICAgICAgICAgICAgICAgICAgICA8aW1nIGNsYXNzPSJ2aXNpYmxlLXNtLWJsb2NrIiBzcmM9Int7bWVkaWEgdXJsPSJ3eXNpd3lnL3Byb2R1Y3QvdDAxOTQzMDM2MDMxMDEvdDAxOTQzMDM2MDMxMDF0YjIuanBnIn19IiBhbHQ9InBhZCIgLz4NCiAgICAgICAgICAgICAgICAgICAgICAgPGltZyBjbGFzcz0idmlzaWJsZS14cy1ibG9jayIgc3JjPSJ7e21lZGlhIHVybD0id3lzaXd5Zy9wcm9kdWN0L3QwMTk0MzAzNjAzMTAxL3QwMTk0MzAzNjAzMTAxbWIyLmpwZyJ9fSIgYWx0PSJtb2JpbGUiIC8+CQ0KICAgICAgICAgICAgICAgIDwvcD4NCgk8L2Rpdj4NCjwvZGl2Pg0KPGRpdiBjbGFzcz0iZGVzY3JpcHRpb24tZGV0YWlsLXNob3cgY29udGFpbmVyLWZsdWlkIj4NCgk8ZGl2IGNsYXNzPSJjb250ZW50IGNvbnRhaW5lciI+DQoJCTxoMyBjbGFzcz0ieHMtY29udGVudC1kcm9wZG93biB4cy1jb250ZW50LWRyb3Bkb3duLW9wZW4iPue7huiKguWxleekujwvaDM+DQogICAgICAgICAgICAgICAgPGRpdiBjbGFzcz0iY29udGVudCI+DQogICAgICAgICAgICAgICAgICAgICAgICA8cD4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxpbWcgY2xhc3M9InZpc2libGUtbWQtYmxvY2sgdmlzaWJsZS1sZy1ibG9jayIgc3JjPSJ7e21lZGlhIHVybD0id3lzaXd5Zy9wcm9kdWN0L3QwMTk0MzAzNjAzMTAxL3QwMTk0MzAzNjAzMTAxcGMzLmpwZyJ9fSIgYWx0PSJwYyIgLz4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxpbWcgY2xhc3M9InZpc2libGUtc20tYmxvY2siIHNyYz0ie3ttZWRpYSB1cmw9Ind5c2l3eWcvcHJvZHVjdC90MDE5NDMwMzYwMzEwMS90MDE5NDMwMzYwMzEwMXRiMy5qcGcifX0iIGFsdD0icGFkIiAvPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGltZyBjbGFzcz0idmlzaWJsZS14cy1ibG9jayIgc3JjPSJ7e21lZGlhIHVybD0id3lzaXd5Zy9wcm9kdWN0L3QwMTk0MzAzNjAzMTAxL3QwMTk0MzAzNjAzMTAxbWIzLmpwZyJ9fSIgYWx0PSJtb2JpbGUiIC8+CQ0KICAgICAgICAgICAgICAgICAgICAgICAgPC9wPg0KICAgICAgICAgICAgICAgICAgICAgICAgPHA+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8aW1nIGNsYXNzPSJ2aXNpYmxlLW1kLWJsb2NrIHZpc2libGUtbGctYmxvY2siIHNyYz0ie3ttZWRpYSB1cmw9Ind5c2l3eWcvcHJvZHVjdC90MDE5NDMwMzYwMzEwMS90MDE5NDMwMzYwMzEwMXBjNC5qcGcifX0iIGFsdD0icGMiIC8+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8aW1nIGNsYXNzPSJ2aXNpYmxlLXNtLWJsb2NrIiBzcmM9Int7bWVkaWEgdXJsPSJ3eXNpd3lnL3Byb2R1Y3QvdDAxOTQzMDM2MDMxMDEvdDAxOTQzMDM2MDMxMDF0YjQuanBnIn19IiBhbHQ9InBhZCIgLz4NCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxpbWcgY2xhc3M9InZpc2libGUteHMtYmxvY2siIHNyYz0ie3ttZWRpYSB1cmw9Ind5c2l3eWcvcHJvZHVjdC90MDE5NDMwMzYwMzEwMS90MDE5NDMwMzYwMzEwMW1iNC5qcGcifX0iIGFsdD0ibW9iaWxlIiAvPgkNCiAgICAgICAgICAgICAgICAgICAgICAgIDwvcD4NCiAgICAgICAgICAgICAgICAgICAgICAgIDxwPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGltZyBjbGFzcz0idmlzaWJsZS1tZC1ibG9jayB2aXNpYmxlLWxnLWJsb2NrIiBzcmM9Int7bWVkaWEgdXJsPSJ3eXNpd3lnL3Byb2R1Y3QvdDAxOTQzMDM2MDMxMDEvdDAxOTQzMDM2MDMxMDFwYzUuanBnIn19IiBhbHQ9InBjIiAvPg0KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGltZyBjbGFzcz0idmlzaWJsZS1zbS1ibG9jayIgc3JjPSJ7e21lZGlhIHVybD0id3lzaXd5Zy9wcm9kdWN0L3QwMTk0MzAzNjAzMTAxL3QwMTk0MzAzNjAzMTAxdGI1LmpwZyJ9fSIgYWx0PSJwYWQiIC8+DQogICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8aW1nIGNsYXNzPSJ2aXNpYmxlLXhzLWJsb2NrIiBzcmM9Int7bWVkaWEgdXJsPSJ3eXNpd3lnL3Byb2R1Y3QvdDAxOTQzMDM2MDMxMDEvdDAxOTQzMDM2MDMxMDFtYjUuanBnIn19IiBhbHQ9Im1vYmlsZSIgLz4JDQogICAgICAgICAgICAgICAgICAgICAgICA8L3A+DQogICAgICAgICAgICAgICAgPC9kaXY+DQoJPC9kaXY+DQo8L2Rpdj4=","pdf_link":"https://www.tissotwatches.com/assets/usermanuals/157-zh.pdf","reference_weight_gross":"","related_products":[{"image":"https://tissot.d.d1miao.com/media/catalog/product/no_selection","final_price":0.01,"price":"4600.0000","name":"天梭唯思达系列皮带机械男表","id":"674","sku":"T0194301603101"},{"image":"https://tissot.d.d1miao.com/media/catalog/product/no_selection","final_price":0.01,"price":"4600.0000","name":"天梭唯思达系列皮带机械男表 ","id":"675","sku":"T0194301605101"}],"reference_dial_type_label":"indexes","sousfamille_tissotmovementcaliber_tissotpowerreserve":"power reserve of 38 hours","small_image_url":"https://tissot.d.d1miao.com/media/catalog/product/no_selection","final_price":0.01,"reference_features_boite_label":"","reference_diamond_dial_diamond_carat":"","technical_specifications":"","sousfamille_features_montre_etan_label":"Water-resistant up to a pressure of 3 bar (30 m / 100 ft)","bracelet_colorisbracelet_label":"Leather","type_id":"simple","alert_is_enabled":true,"reference_shape":"ROUND","reference_box_height":"","reference_diamond_dial_diamond_cut":"","reviews_item":[{"images":[{"url":"https://tissot.d.d1miao.com/media/review//w/x/wx7fc9a5b3b12834dd.o6zajs9-syie7yet1p2q8d7uyc0a.7mhzdsnctf3wf83a6231aba3b1189c18d7bfb1da2ec4.png"}],"user_name":"dd","votes":[{"percent":"60"}],"detail":"dfffdfdfddfffff","title":"订单评论title","create_date":"2018-09-20 09:34:29"},{"images":[],"user_name":"dd","votes":[{"percent":"80"}],"detail":"vffgffff","title":"订单评论title","create_date":"2018-09-20 09:33:29"},{"images":[{"url":"https://tissot.d.d1miao.com/media/review//w/x/wx7fc9a5b3b12834dd.o6zajs9-syie7yet1p2q8d7uyc0a.i34xlxrnpkcc27c969f461fa6b3f8fa630ed2b21e653.jpeg"},{"url":"https://tissot.d.d1miao.com/media/review//w/x/wx7fc9a5b3b12834dd.o6zajs9-syie7yet1p2q8d7uyc0a.dwp4iqifllubf83a6231aba3b1189c18d7bfb1da2ec4.png"}],"user_name":"dd","votes":[],"detail":"pppppppppppp","title":"订单评论title","create_date":"2018-09-18 12:46:16"},{"images":[{"url":"https://tissot.d.d1miao.com/media/review//w/x/wx7fc9a5b3b12834dd.o6zajs9-syie7yet1p2q8d7uyc0a.7gz4tavupbbff83a6231aba3b1189c18d7bfb1da2ec4.png"}],"user_name":"dd","votes":[],"detail":"neironf","title":"订单评论title","create_date":"2018-09-18 07:41:25"},{"images":[],"user_name":"patrick","votes":[{"percent":"60"}],"detail":"fdsfds","title":"fsdfs","create_date":"2016-12-08 08:59:28"},{"images":[],"user_name":"patrick","votes":[{"percent":"60"}],"detail":"sadsa ","title":"dasd ","create_date":"2016-12-07 11:55:10"},{"images":[],"user_name":"patrick","votes":[{"percent":"80"}],"detail":"dsadsa","title":"dsadsa","create_date":"2016-12-07 09:46:59"},{"images":[],"user_name":"customer","votes":[{"percent":"60"}],"detail":"的撒旦萨","title":"撒旦撒旦","create_date":"2016-11-30 09:14:24"},{"images":[],"user_name":"customer","votes":[{"percent":"60"}],"detail":"dsadas","title":"dsadsa","create_date":"2016-11-30 09:09:25"},{"images":[],"user_name":"customer","votes":[{"percent":"80"}],"detail":"便宜又漂亮","title":"很漂亮","create_date":"2016-11-28 05:49:56"},{"images":[],"user_name":"customer","votes":[{"percent":"60"}],"detail":"地方撒旦撒旦萨","title":"的撒旦撒旦萨","create_date":"2016-11-25 08:58:41"}],"sousfamille_tissotmovementcaliber_mouvement_web":"","qty_stock":9970,"gallery_images":{"1344":{"label":"","url":"https://tissot.d.d1miao.com/media/catalog/product/t/0/t0194303603101_1.png"}}},"message":"操作成功","timestamp":"1539226948"},"status":true}</td>
+				</tr>
+				<tr class='log' status='debug'>
+					<td class='status debug' title='debug' alt='debug'><i class='material-icons'>low_priority</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>Key：code,预期的结果为：success,实际结果为：success</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>Test passed</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+				
+				
+				<li class='test displayed active  pass' status='pass' bdd='false' test-id='3'>
+					<div class='test-heading'>
+						<span class='test-name'>到货通知</span>
+						<span class='test-time'>Oct 11, 2018 11:05:47 AM</span>
+						<span class='test-status right pass'>pass</span>
+					</div>
+					<div class='test-content hide'>
+<div class='test-time-info'>
+	<span class='label start-time'>Oct 11, 2018 11:05:47 AM</span>
+	<span class='label end-time'>Oct 11, 2018 11:05:48 AM</span>
+	<span class='label time-taken grey lighten-1 white-text'>0h 0m 0s+275ms</span>
+</div>
+	<div class='test-steps'>
+		<table class='bordered table-results'>
+			<thead>
+				<tr>
+					<th>Status</th>
+					<th>Timestamp</th>
+					<th>Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr class='log' status='debug'>
+					<td class='status debug' title='debug' alt='debug'><i class='material-icons'>low_priority</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>当前执行的CaseId：到货通知</td>
+				</tr>
+				<tr class='log' status='debug'>
+					<td class='status debug' title='debug' alt='debug'><i class='material-icons'>low_priority</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>请求的接口头信息为： Content-Type:application/json</td>
+				</tr>
+				<tr class='log' status='debug'>
+					<td class='status debug' title='debug' alt='debug'><i class='material-icons'>low_priority</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>当前请求接口的URL为：https://tissot.d.d1miao.com/applet</td>
+				</tr>
+				<tr class='log' status='debug'>
+					<td class='status debug' title='debug' alt='debug'><i class='material-icons'>low_priority</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>当前接口输入的参数为：{
+    "method":"catalog.product.alert",
+    "mobile":"13585720407",
+    "id":"412",
+    "code":"286486"
+}</td>
+				</tr>
+				<tr class='log' status='debug'>
+					<td class='status debug' title='debug' alt='debug'><i class='material-icons'>low_priority</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>接口返回的Response为： {"result":{"code":"error","message":"验证码不正确，请重新请求发送！","timestamp":"1539226949"},"status":false}</td>
+				</tr>
+				<tr class='log' status='debug'>
+					<td class='status debug' title='debug' alt='debug'><i class='material-icons'>low_priority</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>Key：message,预期的结果为：验证码不正确，请重新请求发送！,实际结果为：验证码不正确，请重新请求发送！</td>
+				</tr>
+				<tr class='log' status='pass'>
+					<td class='status pass' title='pass' alt='pass'><i class='material-icons'>check_circle</i></td>
+					<td class='timestamp'>11:05:48 AM</td>
+					<td class='step-details'>Test passed</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- subview left -->
+
+	<div class='subview-right left'>
+		<div class='view-summary'>
+			<h5 class='test-name'></h5>
+
+			<div id='step-filters' class="right">
+				<span class="blue-text" status="info" alt="info" title="info"><i class="material-icons">info_outline</i></span>
+				<span class="green-text" status="pass" alt="pass" title="pass"><i class="material-icons">check_circle</i></span>
+				<span class="red-text" status="fail" alt="fail" title="fail"><i class="material-icons">cancel</i></span>
+				<span class="red-text text-darken-4" status="fatal" alt="fatal" title="fatal"><i class="material-icons">cancel</i></span>
+				<span class="pink-text text-lighten-1" status="error" alt="error" title="error"><i class="material-icons">error</i></span>
+				<span class="orange-text" alt="warning" status="warning" title="warning"><i class="material-icons">warning</i></span>
+				<span class="teal-text" status="skip" alt="skip" title="skip"><i class="material-icons">redo</i></span>
+				<span status="clear" alt="Clear filters" title="Clear filters"><i class="material-icons">clear</i></span>
+			</div>
+		</div>
+	</div>
+	<!-- subview right -->
+
+</div>
+<!-- test view --><!-- category view --><!-- exception view --><div id='dashboard-view' class='view hide'>
+	<div class='card-panel transparent np-v'>
+		<h5>Dashboard</h5>
+
+		<div class='row'>
+			<div class='col s2'>
+				<div class='card-panel r'>
+					Tests
+					<div class='panel-lead'>3</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+					Steps
+					<div class='panel-lead'>3</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+					Start
+					<div class='panel-lead'>Oct 11, 2018 11:05:46 AM</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+			 		End
+			 		<div class='panel-lead'>Oct 11, 2018 11:05:48 AM</div>
+				</div>
+			</div>
+			<div class='col s2'>
+				<div class='card-panel r'>
+					Time Taken
+					<div class='panel-lead'>2,195ms</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- dashboard view --><!-- testrunner-logs view -->
+		</div>
+		<!-- container -->
+
+		<script>
+			var statusGroup = {
+				passParent: 3,
+				failParent: 0,
+				fatalParent: 0,
+				errorParent: 0,
+				warningParent: 0,
+				skipParent: 0,
+				exceptionsParent: 0,
+				
+				passChild: 3,
+				failChild: 0,
+				fatalChild: 0,
+				errorChild: 0,
+				warningChild: 0,
+				skipChild: 0,
+				infoChild: 0,
+				exceptionsChild: 18,
+				
+				passGrandChild: 0,
+				failGrandChild: 0,
+				fatalGrandChild: 0,
+				errorGrandChild: 0,
+				warningGrandChild: 0,
+				skipGrandChild: 0,
+				infoGrandChild: 0,
+				exceptionsGrandChild: 0,
+			};
+		</script>
+		
+			<script src='http://extentreports.com/resx/dist/js/extent.js' type='text/javascript'></script>
+		
+		
+	</body>
+	
+</html>

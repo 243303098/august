@@ -64,7 +64,7 @@ public class ExcuteAllCase {
     /**
      * QuerySql返回结果
      */
-    private static Map resultMap;
+    //private static Map resultMap;
 
     private SoftAssert softAssert;
 
@@ -234,7 +234,7 @@ public class ExcuteAllCase {
          *  sql中可能存在引用参数，需先替换
          *  判断sql返回值与预期结果是否相同
          */
-        if (caseDetailsEntity.getQuerySql().size() > 0 && !StringTools.isNullOrEmpty(caseDetailsEntity.getExpectSqlResult())) {
+        if (caseDetailsEntity.getQuerySql().size() > 0 ) {
             //替换sql中可能存在的引用参数
             String queryParam = null;
             for (int i = 0; i < caseDetailsEntity.getQuerySql().size(); i++) {
@@ -250,30 +250,32 @@ public class ExcuteAllCase {
                     caseDetailsEntity.getQuerySql().set(i, caseDetailsEntity.getQuerySql().get(i).replace("${" + querySqlList.get(i).toString() + "}", queryParam));
                 }
             }
-            //  获取sql返回值
-            resultMap = new LinkedHashMap();
+            //  获取sql返回值,并存储到processorMap中，方便后期调用,只取第一个值
+            //resultMap = new LinkedHashMap();
             for (int i = 0; i < caseDetailsEntity.getQuerySql().size(); i++) {
-                resultMap.putAll(excuteQuerySql(caseDetailsEntity, caseDetailsEntity.getQuerySql().get(i)));
+                processorMap.putAll(excuteQuerySql(caseDetailsEntity, caseDetailsEntity.getQuerySql().get(i)));
             }
-            //将预期的sql返回值转换成Map存储
-            Map<String, String> expectSqlResultMap = new HashMap();
-            //  去除所有的换行符，并以&分隔
-            String[] expectSqlResult = caseDetailsEntity.getExpectSqlResult().replaceAll("\n", "").split("\\&");
-            for (int i = 0; i < expectSqlResult.length; i++) {
-                String[] expectSqlResultDetails = expectSqlResult[i].split("\\:");
-                expectSqlResultMap.put(expectSqlResultDetails[0], expectSqlResultDetails[1]);
-            }
-            //  比对sql返回值与预期结果是否相同
-            Iterator<Map.Entry<String, String>> it = expectSqlResultMap.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry<String, String> entry = it.next();
-                //  如果存在相同的Key，则比较值是否相等，若expectSqlResultMap中的key不存在于resultMap中，则失败
-                if (resultMap.containsKey(entry.getKey())) {
-                    Reporter.log("Key:" + entry.getKey() + "预期的Value为：" + entry.getValue() + "，实际结果为：" + resultMap.get(entry.getKey()));
-                    softAssert.assertEquals(resultMap.get(entry.getKey()), entry.getValue());
-                } else {
-                    Reporter.log("预期的Key：" + entry.getKey() + "未查询到");
-                    softAssert.assertFalse(false);
+            if(!StringTools.isNullOrEmpty(caseDetailsEntity.getExpectSqlResult())){
+                //将预期的sql返回值转换成Map存储
+                Map<String, String> expectSqlResultMap = new HashMap();
+                //  去除所有的换行符，并以&分隔
+                String[] expectSqlResult = caseDetailsEntity.getExpectSqlResult().replaceAll("\n", "").split("\\&");
+                for (int i = 0; i < expectSqlResult.length; i++) {
+                    String[] expectSqlResultDetails = expectSqlResult[i].split("\\:");
+                    expectSqlResultMap.put(expectSqlResultDetails[0], expectSqlResultDetails[1]);
+                }
+                //  比对sql返回值与预期结果是否相同
+                Iterator<Map.Entry<String, String>> it = expectSqlResultMap.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry<String, String> entry = it.next();
+                    //  如果存在相同的Key，则比较值是否相等，若expectSqlResultMap中的key不存在于resultMap中，则失败
+                    if (processorMap.containsKey(entry.getKey())) {
+                        Reporter.log("Key:" + entry.getKey() + "预期的Value为：" + entry.getValue() + "，实际结果为：" + processorMap.get(entry.getKey()));
+                        softAssert.assertEquals(processorMap.get(entry.getKey()), entry.getValue());
+                    } else {
+                        Reporter.log("预期的Key：" + entry.getKey() + "未查询到");
+                        softAssert.assertFalse(false);
+                    }
                 }
             }
         }
@@ -296,7 +298,7 @@ public class ExcuteAllCase {
                 List<Object> list = (List<Object>) JSONPath.eval(JSONObject.parse(result), "$.." + entry.getKey());
                 if (list.size() > 0) {
                     Reporter.log("Key：" + entry.getKey() + ",预期的结果为：" + entry.getValue() + ",实际结果为：" + list.get(0).toString());
-                    softAssert.assertEquals(list.get(0).toString(), entry.getValue());
+                    softAssert.assertEquals(list.get(0).toString().trim(), entry.getValue().trim());
                 } else {
                     softAssert.assertFalse(false, "根据Key：" + entry.getKey() + "未获取到实际的值");
                 }

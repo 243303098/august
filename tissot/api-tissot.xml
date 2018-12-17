@@ -4,7 +4,7 @@
     <parameter name="project" value=""/>
     <test parallel="classes" preserve-order="false" name="TestDebug">
         <classes>
-            <class name="com.d1m.utils.Token"/>
+            <class name="com.d1m.excute.ExcuteAllCase"/>
         </classes>
     </test>
     <listeners>
